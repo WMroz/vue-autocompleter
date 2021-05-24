@@ -5,7 +5,7 @@
 	margin-top: -8px;
 	text-align: center;
 }
-.home .s-box .search_input {
+.s-box .search_input {
 	display: block;
 	border: 1px solid #ddd;
 	color: rgba(0,0,0, 0.87);
@@ -17,7 +17,7 @@
 	transition: box-shadow 100ms;
 	outline: none;
 }
-.home .s-box  .search_input:hover {
+.s-box  .search_input:hover {
 	border: 1px solid #fff;
 	box-shadow: 0 0 2px rgba(0, 0, 0, 0.05), 
 				0 0 2px rgba(0, 0, 0, 0.05),
@@ -63,7 +63,7 @@
 .home .s-btn:hover {
 	border: 1px solid #aaa;
 }
-.home .cities{
+.vue-autocompleter .cities{
 
 	width: 580px;
 	font-size: 16px;
@@ -92,13 +92,13 @@
 	margin-top: 20px;
 	float: left;
   }
-  .home li
+  .vue-autocompleter .cities li
 {
     display: block;
     padding: 0;
     margin: 0;
     cursor: pointer;
-	margin-left: 0px;
+	margin-left: 20px;
 	text-align: left;
 	height: 35px;
 	margin-top: 10px;
@@ -106,15 +106,15 @@
 .HighBack{
     background-color: #dfe1e5;
 }
-.home .cities .podpowiedzi{
+.vue-autocompleter .cities .podpowiedzi{
 	font-weight: bold;
 	cursor: pointer;
   }
-  .home .cities .highlight {
+  .vue-autocompleter .cities .highlight {
 	font-weight: lighter;
   }
-.home li:hover,
-.home li:focus 
+.vue-autocompleter li:hover,
+.vue-autocompleter li:focus 
 {
     box-shadow: 0 0 0.3em 0.1em #d9d9d9;
 }
