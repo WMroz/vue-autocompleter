@@ -12,8 +12,9 @@
 <!-- <body class="results"> -->
 <body>
     <div id="app" :class="[isActive == 1 ? 'results' : 'home']"> 
-	    <h1>PRZYKLAD VUE AUTOCOMPLETER</h1>
-	    <p>Wpisanie frazy w search box skutkuje znlezeniem 10 mozliwych dopasowan, ktore posaidaja w sobie ow fraze.</p>
+	    <h1>PRZYKŁAD VUE AUTOCOMPLETER</h1>
+	    <p>Wpisanie frazy w search box skutkuje znalezieniem 10 możliwych dopasowań, które posaidają w sobie ów fraze.</p>
+	    <p>Po sugerowanych wynikach mozna przesuwać się za pomocą strzałek w górę i w dół oraz enter. Można również nacisnąć lewy przycisk myszki.</p>
       		<div class="s-box">
                 <v-autocompleter v-model="googleSearch" :options="cities" @enter="showResults"></v-autocompleter>
       		</div>
