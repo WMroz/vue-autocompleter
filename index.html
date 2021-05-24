@@ -15,10 +15,7 @@
 	    <h1>PRZYKLAD VUE AUTOCOMPLETER</h1>
 	    <p>Wpisanie frazy w search box skutkuje znlezeniem 10 mozliwych dopasowan, ktore posaidaja w sobie ow fraze.</p>
       		<div class="s-box">
-                <img src="googleser.svg" class="search-icon">
                 <v-autocompleter v-model="googleSearch" :options="cities" @enter="showResults"></v-autocompleter>
-                <img src="googlekey.png" class="keyboard-icon">
-      			<img src="googlemic.png" class="vs-icon">
       		</div>
       	</form>
       </section>
