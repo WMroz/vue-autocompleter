@@ -1,70 +1,75 @@
-Vue.component('v-autocompleter',{
-    templete:'<img src="googleser.svg" class="search-icon"> <input @focus="focused" ref="first" v-model="googleSearch" list="listaMiast" type="text" class="search_input" @keyup.down="goDown()" @keyup.up="goUp()" @keyup.enter="clickEnter" /> <img src="googlekey.png" class="keyboard-icon"> <img src="googlemic.png" class="vs-icon"> <div class="cities"> <li v-for="(city,index) in filteredCities" @click="handleClick(city.name)" :class="{HighBack: index == forPick}"> <img class="glass" src="googleser.svg"> <div class="podpowiedzi" v-html="highlight(city.name)"></div> </li>',
+Vue.component('v-autocompleter', {
+    template: `
+    <div class="vue-autocompleter">
+    <input
+      ref="first"
+      :value="value"
+      type="text"
+      class="search_input"
+      @input="$emit('input', $event.target.value)"
+      @keyup.down="goDown"
+      @keyup.up="goUp"
+      @keyup.enter="clickEnter" />
+      <div class="cities">
+        <li v-for="(city, index) in filteredCities" v-on:click="handleClick(city.name)" :class="{HighBack: index == forPick}">
+          <div class="podpowiedzi" v-on:click="choose(index)" v-html="highlight(city.name)"></div>
+        </li>
+      </div>
+    </div>`,
+    props: ['value', 'options'],
     data: function(){
         return {
-            googleSearch: '',
-            googleSearch_temp:'',
+            selected_city: '',
+            googleSearch_temp: '',
+            updated: true,
             isActive: 0,
             cities: window.cities,
-            focused: true,
             forPick: -1,
-            updated: true,
+            filteredCities: []
         }
     },
     watch: {
         forPick: function () {
             this.updated = false;
-            this.googleSearch = this.filteredCities[this.forPick].name
+            
+            if (this.forPick >= 0) {
+                this.$emit('input', this.filteredCities[this.forPick].name);
+              }
             },
-        googleSearch: function(){
-            if(this.googleSearch.length == 0){
-                this.filteredCities='';
-            }
-            else{
-                this.createFilteredList(this.updated);
+        value: function(){
+            if(this.value.length == 0){
+                this.filteredCities = [];
+              } else{
                 this.updated=true;
+        
                 if(this.forPick == -1){
-                    this.googleSearch_temp = this.googleSearch;
-                    this.createFilteredList(true);
+                  this.googleSearch_temp = this.value; 
+                  this.CreateCities();     
                 }
+              }
             }
-        }
         },
     methods: {
-      handleClick: function (name) {
-        this.googleSearch = name;
-        this.isActive();
-      },
-      highlight: function(phrase) {
-        return phrase.replaceAll(this.googleSearch, '<span class="highlight">' + this.googleSearch + '</span>')
-      },
-      createFilteredList(bool){
-          if(bool){
-              let result = this.cities.filter(city => city.name.includes(this.googleSearch));
-              if(result.length>10){
-                  this.filteredCities = result.slice(1,11);
-              }
-              else{
-                  this.filteredCities = result;
-              }
-              this.forPick = -1;
-          }
-      },
-      switchPage(){
-          if(this.isActive==0){
-              this.isActive =1;
+      CreateCities(){
+          let result = this.cities.filter(city => city.name.includes(this.value));
+          if(result.length > 10){
+            this.filteredCities = result.slice(1, 11);
           }
           else{
-              this.googleSearch = '';
-              this.isActive = 0;
+            this.filteredCities = result;
           }
-
+        this.forPick = -1;
+    },
+      handleClick(name) {
+        this.$emit('input', this.value);
+        this.clickEnter();
       },
-      handleClick(name){
-          this.googleSearch = name;
-          this.switchPage();
+      choose(i){
+        this.$emit('input', this.filteredCities[i].name);
+    },
+      highlight: function(phrase) {
+        return phrase.replaceAll(this.value, '<span class="highlight">' + this.value + '</span>')
       },
-
       goDown(){
         if(this.forPick < this.filteredCities.length -1){
             this.forPick +=1;
@@ -81,16 +86,13 @@ Vue.component('v-autocompleter',{
            this.forPick = this.filteredCities.length -1;
        }
       },
-      clickEnter(){
-          if(this.forPick != -1){
-              this.googleSearch = this.filteredCities[this.forPick].name
-              this.forPick = -1;
-              this.focused = false;
-              this.switchPage();
+      clickEnter: function(event){
+        if(event) {
+            this.CreateCities();
+            this.forPick = -1;
           }
-          else{
-              this.switchPage
-          }
+          this.$emit('enter', this.value);
+          this.isActive = 1;
       }
     },
 
