@@ -3,35 +3,22 @@
 <head>
     <meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Google</title>
-	<link rel="stylesheet" type="text/css" href="style.css">
-    <link rel="stylesheet" type="text/css" href="v-autocompleter.css">
-	<link rel="stylesheet" type="text/css" href="styleSearch.css">
-    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
-    <script src="./cities.js"></script>
-    <script src="v-autocompleter.js"></script>
+	<title>Vue autocompleter</title>
+    	<link rel="stylesheet" type="text/css" href="v-autocompleter.css">
+    	<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    	<script src="./cities.js"></script>
+    	<script src="v-autocompleter.js"></script>
 </head>
 <!-- <body class="results"> -->
 <body>
     <div id="app" :class="[isActive == 1 ? 'results' : 'home']"> 
-        	<!-- homepage -->
-      <nav>
-      	<a href="#">Gmail</a>
-      	<a href="#">Grafika</a>
-      	<img src="googlemen.png">
-      	<button>Zaloguj się</button>
-      </nav>
-      <section class="section-1">
-      	<img src="googlelog.png" class="logo">
-      	<form><br><br>
-            
+	    <h1>PRZYKLAD VUE AUTOCOMPLETER</h1>
+	    <p>Wpisanie frazy w search box skutkuje znlezeniem 10 mozliwych dopasowan, ktore posaidaja w sobie ow fraze.</p>
       		<div class="s-box">
                 <img src="googleser.svg" class="search-icon">
                 <v-autocompleter v-model="googleSearch" :options="cities" @enter="showResults"></v-autocompleter>
                 <img src="googlekey.png" class="keyboard-icon">
       			<img src="googlemic.png" class="vs-icon">
-      			<input type="submit" class="s-btn" value="Szukaj w Google">
-      			<input type="submit" class="s-btn" value="Szczęśliwy traf">
       		</div>
       	</form>
       </section>
