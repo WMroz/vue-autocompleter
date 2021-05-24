@@ -55,5 +55,28 @@
       		</div>
       	</div>
       </footer>
+	    <script>
+        var app = new Vue({
+          el: '#app',
+          data: {
+            enterValues: [],
+            cities: window.cities,
+            isActive: 0,
+            googleSearch: '',
+          },
+          methods: {
+            showResults(newValue) {
+                this.enterValues.push(newValue);
+    
+                if (this.isActive == 0) {
+                    this.isActive = 1;
+                } else{
+                    this.$emit('input', '');
+                    this.isActive = 0;
+                }
+            }
+          },
+        });
+    </script>
 </body>
 </html>
