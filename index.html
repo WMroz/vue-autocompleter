@@ -9,16 +9,23 @@
     	<script src="./cities.js"></script>
     	<script src="v-autocompleter.js"></script>
 </head>
-<!-- <body class="results"> -->
 <body>
     <div id="app" :class="[isActive == 1 ? 'results' : 'home']"> 
-	    <h1>PRZYKŁAD VUE AUTOCOMPLETER</h1>
-	    <p>Wpisanie frazy w search box skutkuje znalezieniem 10 możliwych dopasowań, które posaidają w sobie ów fraze.</p>
-	    <p>Po sugerowanych wynikach mozna przesuwać się za pomocą strzałek w górę i w dół oraz enter. Można również nacisnąć lewy przycisk myszki.</p>
+	    <h1>PRZYKŁAD VUE AUTOCOMPLETERA</h1>
+	    <p>Wpisanie frazy w search box skutkuje znalezieniem 10 możliwych dopasowań, które posaidają w sobie ów frazę.</p>
+	    <p>Po sugerowanych wynikach można przesuwać się za pomocą strzałek w górę i w dół. Żeby przejść do wyników należy nacisnąć enter.</p>
+        <p> Można również nacisnąć lewy przycisk myszki.</p>
+        <br>
       		<div class="s-box">
                 <v-autocompleter v-model="googleSearch" :options="cities" @enter="showResults"></v-autocompleter>
       		</div>
+
+        <div class="resultPage">
+            <p>Jesteś teraz na stronie wyników!</p>
+        </div>
 	</div>
+
+
 	    <script>
         var app = new Vue({
           el: '#app',
