@@ -16,6 +16,10 @@ Vue.component('v-autocompleter', {
         </li>
       </div>
     </div>`,
+    /**
+     * value - wartość przekazywanej frazy
+     * options - lista stworzona ze zmiennej cities
+     */
     props: ['value', 'options'],
     data: function(){
         return {
@@ -29,6 +33,10 @@ Vue.component('v-autocompleter', {
         }
     },
     watch: {
+        /**
+         * funkcja, która obserwuje przemieszczanie się po liście
+         * mimo, że zmieniamy imputa to lista się nie zmienia
+         */
         forPick: function () {
             this.updated = false;
             
@@ -36,6 +44,10 @@ Vue.component('v-autocompleter', {
                 this.$emit('input', this.filteredCities[this.forPick].name);
               }
             },
+            /**
+             * jeśli coś zostanie wpisane do search-boxa to funkcja dostosowywuje wyniki listy
+             * obsługuje również przejście po liście i zmienia imput w search-boxie
+             */
         value: function(){
             if(this.value.length == 0){
                 this.filteredCities = [];
@@ -50,6 +62,9 @@ Vue.component('v-autocompleter', {
             }
         },
     methods: {
+        /**
+         * funkcja ogarnicza naszą listę miast do 10, każde miasto zawiera w sobie wpisaną frazę 
+         */
       CreateCities(){
           let result = this.cities.filter(city => city.name.includes(this.value));
           if(result.length > 10){
@@ -60,16 +75,33 @@ Vue.component('v-autocompleter', {
           }
         this.forPick = -1;
     },
+    /**
+     * funckja po kliknięciu nazwy wystawia event
+     * @param {nazwa miasta} name 
+     */
       handleClick(name) {
         this.$emit('input', this.value);
         this.clickEnter();
       },
+      /**
+       * Funckja wystawia event po wybraniu miasta o i indeksie z listy
+       * @param {indeks z listy} i 
+       */
       choose(i){
         this.$emit('input', this.filteredCities[i].name);
     },
+    /**
+     * funkcja odpowiada za wyboldowanie części nazwy miasta, która nie została wpisana do search-boxa
+     * a znajduje się w nazwie miasta
+     * @param {wpisana fraza} phrase 
+     * @returns 
+     */
       highlight: function(phrase) {
         return phrase.replaceAll(this.value, '<span class="highlight">' + this.value + '</span>')
       },
+      /**
+       * obsługuje przechodzenie w dół po liście za pomocą strzalek z klawiatury
+       */
       goDown(){
         if(this.forPick < this.filteredCities.length -1){
             this.forPick +=1;
@@ -78,6 +110,9 @@ Vue.component('v-autocompleter', {
             this.forPick = -1;
         }
         },
+        /**
+         * obsługuje przechodzenie w górę po liście za pomocą strzałek z klawiatury
+         */
       goUp(){
        if(this.forPick > -1){
            this.forPick -= 1;
@@ -86,6 +121,10 @@ Vue.component('v-autocompleter', {
            this.forPick = this.filteredCities.length -1;
        }
       },
+      /**
+       * Funkcja obsługuje naciśnięcie enter, które skutuje wystawieniem eventu po wybraniu miasta z listy
+       * @param {event} event 
+       */
       clickEnter: function(event){
         if(event) {
             this.CreateCities();
